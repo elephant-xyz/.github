@@ -31,7 +31,7 @@ This document outlines the end-to-end mining process in the protocol, detailing 
 
 - Multiple oracles independently validate the same seed data.
 - Consensus is reached when >50% submit identical seed payloads.
-- A Merkle tree is generated from the seed and the root hash is committed on-chain.
+- A Merkle DAG is generated from the seed and the root hash is committed on-chain.
 - This establishes the foundational property identity within the protocol ledger.
 
 ### 3. Ingestion
@@ -59,7 +59,7 @@ This document outlines the end-to-end mining process in the protocol, detailing 
   - Rule-based transformation scripts
   - AI-assisted mapping agents
   - CLI utilities available in the GitHub repository
-- Output: `lexicon.json` – a structured, relational representation of the property.
+- Output: A set of files for each property, where each file represents a distinct class or data group.
 
 ### 5. Merkle Hash Commitment (Minting)
 
@@ -67,8 +67,9 @@ This document outlines the end-to-end mining process in the protocol, detailing 
 
 **Procedure:**
 
-- Oracles build a deterministic Merkle tree from the Lexicon-formatted data.
-- The CLI `mint` tool is used to commit the root hash to the protocol smart contract.
+- Oracles build a deterministic Merkle DAG from the Lexicon-formatted data.
+- The CLI command `validate-and-upload` validates extracted data against the lexicon and uploads it to IPFS.
+- The CLI command `submit-to-contract` is used to commit the root hash to the protocol smart contract.
 - This step finalizes the creation of an immutable, versioned record for the property.
 
 ### 6. Token Issuance
@@ -78,8 +79,9 @@ This document outlines the end-to-end mining process in the protocol, detailing 
 **Procedure:**
 
 - Upon successful minting, the smart contract mints:
-  - `Mahout`: transferable token representing economic and governance rights.
   - `vMahout`: non-transferable token attesting to verified contributions.
+- Upon data usage by the protocol providers
+  - `Mahout`: transferable token representing economic and governance rights.
 - Tokens are automatically distributed to the oracle’s registered wallet.
 
 ### 7. Updating
@@ -98,9 +100,8 @@ This document outlines the end-to-end mining process in the protocol, detailing 
 
 ## CLI & Automation Notes
 
-- All major steps (`ingest`, `convert`, `mint`, `verify`) are automatable via CLI.
+- All major steps (`validate-and-upload`, `submit-to-contract`) are automatable via CLI.
 - AI-powered transformation is optional but recommended for complex jurisdictions.
-- A reference implementation is maintained in the `/tools` directory of the protocol repository.
 
 ---
 
@@ -115,7 +116,7 @@ This document outlines the end-to-end mining process in the protocol, detailing 
 
 ## Security & Consensus Guarantees
 
-- Merkle tree generation ensures data immutability and versioning.
+- Merkle DAG generation ensures data immutability and versioning.
 - Multi-oracle validation mitigates bad data injection and single-point failure.
 - Token rewards align oracle incentives with protocol data integrity.
 
