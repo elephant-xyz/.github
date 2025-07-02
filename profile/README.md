@@ -69,7 +69,7 @@ This document outlines the end-to-end mining process in the protocol, detailing 
 
 - Oracles build a deterministic Merkle DAG from the Lexicon-formatted data.
 - The CLI command `validate-and-upload` validates extracted data against the lexicon and uploads it to IPFS.
-- The CLI command `submit-to-contract` is used to commit the root hash to the protocol smart contract.
+- The CLI command `submit-to-contract` commits the root hash to the protocol smart contract.
 - This step finalizes the creation of an immutable, versioned record for the property.
 
 ### 6. Token Issuance
