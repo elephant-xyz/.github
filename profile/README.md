@@ -127,3 +127,12 @@ This document outlines the end-to-end mining process in the protocol, detailing 
 - Integration of ZK proofs for ingestion verification.
 - DAO-based oracle slashing for repeated invalid submissions.
 - Automated jurisdictional prioritization via market demand signals.
+
+---
+
+## License
+Copyright 2025 Elephant.xyz
+Licensed under the Apache License, Version 2.0 (the “License”);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
