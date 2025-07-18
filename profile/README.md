@@ -6,6 +6,15 @@ This document outlines the end-to-end mining process in the protocol, detailing 
 
 ---
 
+## Prerequisites
+
+Before you begin, ensure you have completed the following:
+
+- **[Setup Guide](https://github.com/elephant-xyz/docs/blob/main/SETUP.md):** You must have a configured environment with a Google account, Pinata JWT, MetaMask wallet, and POL tokens.
+- **[Tech Stack Review](https://github.com/elephant-xyz/docs/blob/main/TECH_STACK.md):** Familiarize yourself with the core technologies, including IPFS, IPLD, and JSON Canonicalization.
+
+---
+
 ## Process Stages
 
 ### 1. Seeding
