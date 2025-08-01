@@ -36,8 +36,8 @@ Each oracle type plays a crucial role in maintaining the integrity, timeliness, 
 graph LR
     A[Learn] --> B[Set Up]
     B --> C[Property Identification]
-    C --> D[Seeding]
-    D --> E[Update]
+    C --> D[Mining]
+    D --> E[Minting]
 ```
 
 ## Learning Key Concepts
@@ -139,13 +139,15 @@ This repository contains:
 ### Required Data Points
 
 Regardless of scale, each property identification must include:
-- **Parcel Identifier**: The unique county-assigned property ID
 - **Standardized Address**: Google Maps formatted address
+- **County**: Google Maps formatted address
+- **Parcel Identifier**: The unique county-assigned property ID
 - **Source URL**: Direct link to the county's property page
-- **Access Method**: HTTP request details for data retrieval
+- **Request Method**: HTTP request method
+- **Headers**: Additional HTTP request arguements
 
 ---
-## 1. Seeding
+## Seeding
 
 **Objective:** Identify and define the minimum viable dataset (MVD) to initialize a property in the protocol.
 
