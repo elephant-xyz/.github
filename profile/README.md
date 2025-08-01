@@ -147,20 +147,100 @@ Regardless of scale, each property identification must include:
 - **Headers**: Additional HTTP request arguements
 
 ---
-## Seeding
+## Mining Process
 
-**Objective:** Identify and define the minimum viable dataset (MVD) to initialize a property in the protocol.
+The mining process transforms raw property data into validated Lexicon format ready for on-chain submission. The process varies based on which data group you're mining.
 
-**Procedure:**
+### Mining
 
-- Oracles locate target properties using publicly available county metadata.
-- Each seed includes:
-  - `parcel_id`
-  - `property_address`
-  - `source_url`
-  - `county_jurisdiction`
-- Seeds are structured in canonical JSON format to ensure compatibility across oracle agents.
-- DAO-published county priorities dictate jurisdictional mining order.
+```mermaid
+graph LR
+    A[Prepare] --> B[Enrich]
+    B --> C[Transform]
+    C --> D[Validate]
+```
+
+### Prepare
+
+Input requirements vary by data group:
+
+**Seed Group**
+- Uses property identification fields prepared from the previous step
+- Includes: Parcel ID, standardized address, source URL
+- Minimal data requirements for initial property registration
+
+**County Group**
+- Start with property identification URL
+- Download all HTML pages related to the property
+- Extract all county-specific data and attributes
+- Capture complete property record from county sources
+
+**Photo Group**
+- Locate publicly accessible URLs for property images
+- Download all available property photos
+- Store images for subsequent IPFS upload
+- Maintain original image quality and metadata
+
+**Photo Metadata Group**
+- Download photos from IPFS (previously uploaded)
+- Prepare images for AI Agent analysis
+- Extract existing metadata from image files
+
+### Enrich
+
+AI-powered enrichment varies by data group:
+
+**Not Required For:**
+- Seed Group
+- County Group  
+- Photo Group
+
+**Required For:**
+- Photo Metadata Group
+
+The AI Agent processes photos to gather detailed property information:
+- Architectural features and building characteristics
+- Property condition assessment
+- Geolocation verification
+- Environmental context and surroundings
+
+### Transform
+
+Converting raw data to Elephant Protocol's standardized schema:
+
+**Simple Transformations:**
+- **Seed**: Straightforward field mapping
+- **Photo**: Basic metadata extraction
+- **Method**: Manual mapping or simple scripts
+
+**Complex Transformations:**
+- **County**: Requires custom transformation code for each jurisdiction
+- **Photo Metadata**: Converts AI Agent generated insights into Lexicon format
+- **Method**: AI-aided transformation using tools at [https://github.com/elephant-xyz/AI-Agent](https://github.com/elephant-xyz/AI-Agent)
+
+The transformation complexity depends on:
+- Data source structure
+- Jurisdiction-specific formats
+- Required field mappings
+- Data validation rules
+
+### Validate
+
+The final validation step using the Elephant CLI:
+
+- Validates data against Lexicon schema requirements
+- Ensures all required fields are properly formatted
+- Generates the final content hash for the data
+- Enables off-chain validation before consensus submission
+- Prepares data for on-chain commitment
+
+The validation process:
+1. Schema compliance check
+2. Data integrity verification
+3. Hash generation for consensus
+4. Pre-submission verification
+
+This step is critical for ensuring data quality and preventing failed consensus attempts.
 
 **[Learn more about Seeding](https://github.com/elephant-xyz/docs/blob/main/1_SEEDING.md)**
 
