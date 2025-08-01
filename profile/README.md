@@ -216,7 +216,7 @@ Converting raw data to Elephant Protocol's standardized schema:
 **Complex Transformations:**
 - **County**: Requires custom transformation code for each jurisdiction
 - **Photo Metadata**: Converts AI Agent generated insights into Lexicon format
-- **Method**: AI-aided transformation using tools at [https://github.com/elephant-xyz/AI-Agent](https://github.com/elephant-xyz/AI-Agent)
+- **Method**: AI-aided transformation using [AI-Agent](https://github.com/elephant-xyz/AI-Agent)
 
 The transformation complexity depends on:
 - Data source structure
@@ -244,96 +244,77 @@ This step is critical for ensuring data quality and preventing failed consensus 
 
 **[Learn more about Seeding](https://github.com/elephant-xyz/docs/blob/main/1_SEEDING.md)**
 
-### 2. Consensus & Commitment
+## Minting
 
-**Objective:** Achieve agreement across oracles on seed data and commit its Merkle root to the smart contract.
+The minting process pushes all validated data to IPFS and commits the final hash to the blockchain, establishing an immutable property record.
 
-**Procedure:**
+### Step 5: Merkle Hash Commitment
 
-- Multiple oracles independently validate the same seed data.
-- Consensus is reached when >50% submit identical seed payloads.
-- A Merkle DAG is generated from the seed and the root hash is committed on-chain.
-- This establishes the foundational property identity within the protocol ledger.
-  **[Learn more about Consensus & Commitment](https://github.com/elephant-xyz/docs/blob/main/2_CONSENSUS_AND_COMMITMENT.md)**
-
-### 3. Ingestion
-
-**Objective:** Acquire the full property data set from the seed’s source URL.
+**Objective:** Anchor the property's full dataset to the blockchain via Merkle root hash.
 
 **Procedure:**
 
-- Oracles use standardized ingestion pipelines to retrieve data such as:
-  - Owner information
-  - Parcel and tax data
-  - Assessed values
-  - Structural and zoning details
-- Supported by shared tools: API connectors, parsers, and scraping agents.
-- Data is stored in an intermediate structure for transformation.
+1. **IPFS Data Upload**
+   - Push all data to IPFS including:
+     - Raw JSON objects for property classes
+     - Relationship classes
+     - Group class data
+   - Generate corresponding hashes in Merkle Tree format
 
-**[Learn more about Ingestion](https://github.com/elephant-xyz/docs/blob/main/3_INGESTION.md)**
+2. **Merkle Tree Construction**
+   - Build deterministic Merkle DAG from all uploaded data
+   - Create hierarchical hash structure
+   - Generate final Group hash representing all data
 
-### 4. Conversion to Lexicon Schema
+3. **Smart Contract Submission**
+   - Submit the final Group hash to smart contract
+   - CLI command `validate-and-upload` handles IPFS upload
+   - CLI command `submit-to-contract` commits hash on-chain
 
-**Objective:** Normalize ingested data into the protocol-wide Lexicon format.
+4. **Consensus & Token Minting**
+   
+   **Groups Requiring Consensus (Seed and County):**
+   - Requires 3 independent oracles to submit identical data
+   - vMAHOUT minted when consensus reached
+   - MAHOUT tokens will be minted (coming soon)
+   - Consensus validates data accuracy across multiple sources
 
-**Procedure:**
-
-- Lexicon is a domain-specific schema designed for cross-jurisdictional consistency.
-- Conversion is performed via:
-  - Rule-based transformation scripts
-  - AI-assisted mapping agents
-  - CLI utilities available in the GitHub repository
-- Output: A set of files for each property, where each file represents a distinct class or data group.
-
-**[Learn more about Conversion to Lexicon Schema](https://github.com/elephant-xyz/docs/blob/main/4_CONVERSION_TO_LEXICON_SCHEMA.md)**
-
-### 5. Merkle Hash Commitment (Minting)
-
-**Objective:** Anchor the property’s full dataset to the blockchain via Merkle root hash.
-
-**Procedure:**
-
-- Oracles build a deterministic Merkle DAG from the Lexicon-formatted data.
-- The CLI command `validate-and-upload` validates extracted data against the lexicon and uploads it to IPFS.
-- The CLI command `submit-to-contract` commits the root hash to the protocol smart contract.
-- This step finalizes the creation of an immutable, versioned record for the property.
+   **Groups Without Consensus (Photo and Photo Metadata):**
+   - No consensus required
+   - vMAHOUT minted immediately upon submission
+   - MAHOUT tokens will be minted (coming soon)
+   - Single oracle submission sufficient
 
 **[Learn more about Merkle Hash Commitment](https://github.com/elephant-xyz/docs/blob/main/5_MERKLE_HASH_COMMITMENT.md)**
 
-### 6. Token Issuance
+### Token Issuance
 
 **Objective:** Reward oracle agents for successful contributions.
 
 **Procedure:**
 
-- Upon successful minting, the smart contract mints:
-  - `vMahout`: non-transferable token attesting to verified contributions.
-- Upon data usage by the protocol providers
-  - `Mahout`: transferable token representing economic and governance rights.
-- Tokens are automatically distributed to the oracle’s registered wallet.
+- Smart contract automatically mints tokens upon successful submission:
+  - **vMAHOUT**: Non-transferable token attesting to verified contributions
+  - **MAHOUT**: Transferable token representing economic and governance rights (coming soon)
+
+- Oracle can view token status in their wallet
+- Smart contract transactions viewable on Polygon explorer
+- Tokens automatically distributed to oracle's registered wallet
 
 **[Learn more about Token Issuance](https://github.com/elephant-xyz/docs/blob/main/6_TOKEN_ISSUANCE.md)**
 
-### 7. Updating
+### Verification
 
-**Objective:** Detect and apply updates to property data in near real time.
+After minting process:
+- Check wallet for vMAHOUT token receipt
+- View smart contract status on Polygon explorer
+- Verify IPFS hashes for data availability
+- Monitor consensus status for applicable groups
 
-**Procedure:**
+This process creates an immutable, versioned record for the property while rewarding oracle contributions.
 
-- Oracles continuously monitor seed `source_url`s.
-- If the new Merkle root differs from the latest on-chain record:
-  - A new ingestion-conversion-mint cycle is triggered.
-  - Updated records are committed, ensuring continuity and versioning.
-- The update loop enables high-fidelity tracking of changes in county records.
-  **[Learn more about Updating](https://github.com/elephant-xyz/docs/blob/main/7_UPDATING.md)**
-
----
-
-## CLI & Automation Notes
-
-- All major steps (`validate-and-upload`, `submit-to-contract`) are automatable via CLI.
-- AI-powered transformation is optional but recommended for complex jurisdictions.
-
+**Related Documentation:**
+- **[Learn more about Consensus & Commitment](https://github.com/elephant-xyz/docs/blob/main/2_CONSENSUS_AND_COMMITMENT.md)**
 ---
 
 ## Reward Summary
