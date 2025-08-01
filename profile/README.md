@@ -30,8 +30,55 @@ Non-technical individuals who benefit from the Elephant Protocol ecosystem, typi
 
 Each oracle type plays a crucial role in maintaining the integrity, timeliness, and verifiability of decentralized property records. The diversity of oracle participants ensures both comprehensive coverage and resistant to centralization.
 
+### Oracle Mining Process Flow
 
-## Prerequisites
+```mermaid
+graph LR
+    A[Learn] --> B[Set Up]
+    B --> C[Property Identification]
+    C --> D[Seeding]
+    D --> E[Update]
+```
+
+## Learning Key Concepts
+
+Before beginning the oracle mining process, it's essential to understand the foundational concepts that power the Elephant Protocol.
+
+### Lexicon Schema
+
+The Lexicon is Elephant Protocol's domain-specific data format designed to create cross-jurisdictional consistency in property data. It serves as a universal translator between existing real estate data standards.
+
+**Structure:**
+- **Property Data Classes**: Core property attributes including ownership, assessments, and physical characteristics
+- **Relationship Classes**: Define connections between properties, owners, and transactions - structured specifically for IPFS relationship management
+- **Groups Structure**: Organized to optimize Merkle Tree construction for efficient on-chain verification
+
+The Lexicon normalizes fragmented county data into a unified, queryable format while maintaining compatibility with existing systems. Each property's data is divided into distinct classes that can be independently verified and updated.
+
+For detailed schema definitions and implementation guides, visit: [Elephant Protocol Lexicon](https://lexicon.elephant.xyz/)
+
+### Oracle Wallets
+
+Oracles receive MAHOUT and vMAHOUT tokens through crypto wallets, with two distinct approaches based on participant type:
+
+**Individual Wallets**
+- Standard crypto wallets like MetaMask for independent oracles
+- Direct control over private keys
+- Suitable for technical oracles and small-scale operations
+- Simple setup with personal accountability
+
+**Organization Wallets**
+- Enterprise-grade wallet infrastructure leveraging Key Management Systems (KMS)
+- Designed for institutional oracles managing large-scale operations
+- Separates wallet control from individual employees
+- Avoids the complicated processes required for traditional exchange-based corporate wallets
+- Open-source framework ensures transparency and security
+
+The wallet infrastructure ensures that both individual contributors and large organizations can participate in the oracle ecosystem while maintaining appropriate security and operational controls for their scale.
+
+---
+
+## Setup
 
 Before you begin, ensure you have completed the following:
 
@@ -40,9 +87,7 @@ Before you begin, ensure you have completed the following:
 
 ---
 
-## Process Stages
-
-### 1. Seeding
+## 1. Seeding
 
 **Objective:** Identify and define the minimum viable dataset (MVD) to initialize a property in the protocol.
 
