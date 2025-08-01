@@ -86,7 +86,65 @@ Before you begin, ensure you have completed the following:
 - **[Tech Stack Review](https://github.com/elephant-xyz/docs/blob/main/TECH_STACK.md):** Familiarize yourself with the core technologies, including IPFS, IPLD, and JSON Canonicalization.
 
 ---
+## Property Identification
 
+The property identification process varies based on oracle type and scale of operations. This step establishes the foundational data needed to begin mining properties on the Elephant Protocol.
+
+### Individual Property Identification
+
+For oracles focusing on individual properties (Owner/Provider Oracles managing 1-100 properties):
+
+1. **Locate Property Information**
+   - Start with the property's street address
+   - Google search: "[County Name] appraiser office" or "[County Name] assessor office"
+   - Navigate to the county's property search portal
+
+2. **Extract Core Identifiers**
+   - Search for your target property using the address
+   - Locate and record the **Parcel Identifier** (may also be called Folio ID, APN, or Parcel Number)
+   - Verify the address matches county records
+
+3. **Standardize Property Address**
+   - Input the address into Google Maps
+   - Use the formatted address provided by Google Maps as the standardized version
+   - This ensures consistency across all data submissions
+
+4. **Capture Source Information**
+   - Copy the full URL of the property page from your browser
+   - Open browser Developer Tools (F12)
+   - Navigate to the Network tab
+   - Refresh the property page
+   - Identify the request method (typically GET)
+   - Note any required headers or parameters for data access
+
+### Large-Scale Property Identification
+
+For Technical and Institutional Oracles managing thousands to millions of properties:
+
+The Elephant Protocol foundational team has developed systematic approaches for collecting property identifiers across all 150 million properties in the United States. 
+
+**Resources Available:**
+- Pre-collected county data structures and access patterns
+- Automated scripts for bulk property identification
+- Standardized extraction methodologies by jurisdiction
+
+View examples and access tools at: [US Properties](https://github.com/elephant-xyz/AI-Agent/tree/main/counties)
+
+This repository contains:
+- County-specific data schemas
+- API endpoints and access methods
+- Bulk extraction scripts
+- Property identifier mapping tools
+
+### Required Data Points
+
+Regardless of scale, each property identification must include:
+- **Parcel Identifier**: The unique county-assigned property ID
+- **Standardized Address**: Google Maps formatted address
+- **Source URL**: Direct link to the county's property page
+- **Access Method**: HTTP request details for data retrieval
+
+---
 ## 1. Seeding
 
 **Objective:** Identify and define the minimum viable dataset (MVD) to initialize a property in the protocol.
