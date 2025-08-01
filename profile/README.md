@@ -1,10 +1,35 @@
-# Mining Process
+# Oracle Mining Process
 
 ## Overview
 
-This document outlines the end-to-end mining process in the protocol, detailing the responsibilities of oracles and the mechanisms by which off-chain property data is validated, transformed, and anchored on-chain. Each stage contributes to maintaining the integrity, timeliness, and verifiability of decentralized property records.
+This document outlines the end-to-end oracle mining process in the protocol, detailing how off-chain property data is validated, transformed, and anchored on-chain. The oracle mining process is the core mechanism by which decentralized property records are created and maintained.
 
----
+### Oracle Mining Process
+
+The protocol relies on three types of oracles to ensure comprehensive coverage and data integrity:
+
+#### 1. Technical Oracle
+Software programmers who participate in mining as a side opportunity, typically handling **500,000 to 1 million properties**. These oracles:
+- Possess technical expertise to run mining software and scripts
+- Operate independently to earn MAHOUT tokens
+- Often automate their mining operations for efficiency
+- Contribute significant data volume to the network
+
+#### 2. Institutional Oracle
+Professional entities hired by organizations or high-net-worth individuals to mine MAHOUT on their behalf, managing **more than 1 million properties**. These oracles:
+- Operate at enterprise scale with dedicated resources
+- Provide white-glove mining services for clients
+- Often have teams dedicated to different jurisdictions
+
+#### 3. Owner/Provider Oracle
+Non-technical individuals who benefit from the Elephant Protocol ecosystem, typically managing **1 to 100 properties**. These oracles:
+- Include property owners verifying their own assets
+- Service providers (agents, brokers) adding value for clients
+- Community members contributing local property knowledge
+- Use simplified tools and interfaces for participation
+
+Each oracle type plays a crucial role in maintaining the integrity, timeliness, and verifiability of decentralized property records. The diversity of oracle participants ensures both comprehensive coverage and resistant to centralization.
+
 
 ## Prerequisites
 
