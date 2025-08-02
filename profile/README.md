@@ -248,6 +248,12 @@ This step is critical for ensuring data quality and preventing failed consensus 
 
 The minting process pushes all validated data to IPFS and commits the final hash to the blockchain, establishing an immutable property record.
 
+```mermaid
+graph LR
+    A[Hash] --> B[Upload]
+    B --> C[Submit]
+```
+
 ### Hash
 
 **Objective:** Anchor the property's full dataset to the blockchain via Merkle root hash.
