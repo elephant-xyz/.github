@@ -248,70 +248,35 @@ This step is critical for ensuring data quality and preventing failed consensus 
 
 The minting process pushes all validated data to IPFS and commits the final hash to the blockchain, establishing an immutable property record.
 
-### Step 5: Merkle Hash Commitment
+### Hash
 
 **Objective:** Anchor the property's full dataset to the blockchain via Merkle root hash.
 
 **Procedure:**
-
-1. **IPFS Data Upload**
-   - Push all data to IPFS including:
-     - Raw JSON objects for property classes
-     - Relationship classes
-     - Group class data
-   - Generate corresponding hashes in Merkle Tree format
-
-2. **Merkle Tree Construction**
-   - Build deterministic Merkle DAG from all uploaded data
-   - Create hierarchical hash structure
-   - Generate final Group hash representing all data
-
-3. **Smart Contract Submission**
-   - Submit the final Group hash to smart contract
-   - CLI command `validate-and-upload` handles IPFS upload
-   - CLI command `submit-to-contract` commits hash on-chain
-
-4. **Consensus & Token Minting**
-   
-   **Groups Requiring Consensus (Seed and County):**
-   - Requires 3 independent oracles to submit identical data
-   - vMAHOUT minted when consensus reached
-   - MAHOUT tokens will be minted (coming soon)
-   - Consensus validates data accuracy across multiple sources
-
-   **Groups Without Consensus (Photo and Photo Metadata):**
-   - No consensus required
-   - vMAHOUT minted immediately upon submission
-   - MAHOUT tokens will be minted (coming soon)
-   - Single oracle submission sufficient
+   - Each object includes references or relationships to other objects
+   - Replace object name with its hashf — a deterministic function of its full state
+   - Build a Merkle tree using the hashf outputs of all related objects
+   - Compute the Merkle root, called ihas, as a commitment to the full system state
+   - Use ihas to update the smart contract with the current state
+   - Leverage ihas in consensus to prove the off-chain state matches the committed one
 
 **[Learn more about Merkle Hash Commitment](https://github.com/elephant-xyz/docs/blob/main/5_MERKLE_HASH_COMMITMENT.md)**
 
-### Token Issuance
+### Uplaod
 
-**Objective:** Reward oracle agents for successful contributions.
+**Objective:** Move all the full state to IPFS 
 
-**Procedure:**
-
-- Smart contract automatically mints tokens upon successful submission:
-  - **vMAHOUT**: Non-transferable token attesting to verified contributions
-  - **MAHOUT**: Transferable token representing economic and governance rights (coming soon)
-
-- Oracle can view token status in their wallet
-- Smart contract transactions viewable on Polygon explorer
-- Tokens automatically distributed to oracle's registered wallet
 
 **[Learn more about Token Issuance](https://github.com/elephant-xyz/docs/blob/main/6_TOKEN_ISSUANCE.md)**
 
-### Verification
+### Submit
 
-After minting process:
-- Check wallet for vMAHOUT token receipt
-- View smart contract status on Polygon explorer
-- Verify IPFS hashes for data availability
-- Monitor consensus status for applicable groups
+**Objective:** The Merkle root (ihas) is submitted to the smart contract as a commitment to the full off-chain state.
 
-This process creates an immutable, versioned record for the property while rewarding oracle contributions.
+### Issue 
+**Objective:** After ihas is verified on-chain and consensus is reached, a token is Issued to represent the committed state.
+- Seed and County groups require consensus from 3 oracles
+- Photo and Photo Metadata require consensus from 1 oracle
 
 **Related Documentation:**
 - **[Learn more about Consensus & Commitment](https://github.com/elephant-xyz/docs/blob/main/2_CONSENSUS_AND_COMMITMENT.md)**
