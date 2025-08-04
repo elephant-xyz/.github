@@ -264,7 +264,7 @@ graph LR
 
 **[Learn more about Merkle Hash Commitment](https://github.com/elephant-xyz/docs/blob/main/5_MERKLE_HASH_COMMITMENT.md)**
 
-### Uplaod
+### Upload
 
 **Objective:** Move all the full state to IPFS 
 
