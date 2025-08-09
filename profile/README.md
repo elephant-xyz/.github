@@ -51,7 +51,7 @@ The Lexicon is Elephant Protocol's domain-specific data format designed to creat
 **Structure:**
 - **Property Data Classes**: Core property attributes including ownership, assessments, and physical characteristics
 - **Relationship Classes**: Define connections between properties, owners, and transactions - structured specifically for IPFS relationship management
-- **Groups Structure**: Organized to optimize Merkle Tree construction for efficient on-chain verification
+- **Groups Structure**: Organized to optimize Merkle DAG construction for efficient on-chain verification
 
 The Lexicon normalizes fragmented county data into a unified, queryable format while maintaining compatibility with existing systems. Each property's data is divided into distinct classes that can be independently verified and updated.
 
@@ -171,7 +171,7 @@ Input requirements vary by data group:
 
 **County Group**
 - Start with property identification URL
-- Download all HTML pages related to the property
+- Download all HTML pages related to the property (for some counties, data may also be available as JSON or CSV files).
 - Extract all county-specific data and attributes
 - Capture complete property record from county sources
 
@@ -183,7 +183,7 @@ Input requirements vary by data group:
 
 **Photo Metadata Group**
 - Download photos from IPFS (previously uploaded)
-- Prepare images for AI Agent analysis
+- Prepare images for _Enrich_ step
 - Extract existing metadata from image files
 
 ### Enrich
@@ -230,15 +230,11 @@ The final validation step using the Elephant CLI:
 
 - Validates data against Lexicon schema requirements
 - Ensures all required fields are properly formatted
-- Generates the final content hash for the data
 - Enables off-chain validation before consensus submission
-- Prepares data for on-chain commitment
 
 The validation process:
 1. Schema compliance check
 2. Data integrity verification
-3. Hash generation for consensus
-4. Pre-submission verification
 
 This step is critical for ensuring data quality and preventing failed consensus attempts.
 
@@ -256,36 +252,34 @@ graph LR
 
 ### Hash
 
-**Objective:** Anchor the property's full dataset to the blockchain via Merkle root hash.
+**Objective:** Anchor the property's full dataset to the blockchain via a Merkle DAG root hash.
 
 **Procedure:**
-   - Each object includes references or relationships to other objects
-   - Replace object name with its hashf — a deterministic function of its full state
-   - Build a Merkle tree using the hashf outputs of all related objects
-   - Compute the Merkle root, called ihas, as a commitment to the full system state
-   - Use ihas to update the smart contract with the current state
-   - Leverage ihas in consensus to prove the off-chain state matches the committed one
+- For each data object, first canonicalize its contents to ensure a standard, deterministic representation before hashing.
+- Compute a unique cryptographic hash for each canonicalized object.
+- Construct a Merkle DAG where relationships between objects are represented by their corresponding content hashes.
+- Compute the final Merkle root of the DAG. This single hash serves as a verifiable commitment to the entire dataset's state.
+- Use the Merkle root to update the smart contract with the current state commitment.
+- Leverage the Merkle root in consensus protocols to efficiently prove that the off-chain state matches the on-chain commitment.
 
 **[Learn more about Merkle Hash Commitment](https://github.com/elephant-xyz/docs/blob/main/5_MERKLE_HASH_COMMITMENT.md)**
 
-### Uplaod
+### Upload
 
 **Objective:** Move all the full state to IPFS 
 
-
-**[Learn more about Token Issuance](https://github.com/elephant-xyz/docs/blob/main/6_TOKEN_ISSUANCE.md)**
-
 ### Submit
 
-**Objective:** The Merkle root (ihas) is submitted to the smart contract as a commitment to the full off-chain state.
+**Objective:** The computed Merkle root is submitted to the smart contract, acting as a cryptographic commitment to the full off-chain state.
 
-### Issue 
-**Objective:** After ihas is verified on-chain and consensus is reached, a token is Issued to represent the committed state.
-- Seed and County groups require consensus from 3 oracles
-- Photo and Photo Metadata require consensus from 1 oracle
+### Token Issuance
+**Objective:** After the submitted Merkle root is verified on-chain and the required consensus is reached, a token is issued to represent the newly committed state.
+- Seed and County groups require consensus from 3 oracles.
+- Photo and Photo Metadata require consensus from 1 oracle.
 
 **Related Documentation:**
 - **[Learn more about Consensus & Commitment](https://github.com/elephant-xyz/docs/blob/main/2_CONSENSUS_AND_COMMITMENT.md)**
+- **[Learn more about Token Issuance](https://github.com/elephant-xyz/docs/blob/main/6_TOKEN_ISSUANCE.md)**
 ---
 
 ## Reward Summary
